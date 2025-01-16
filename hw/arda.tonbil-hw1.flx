@@ -1,0 +1,64 @@
+%{
+int lineNum = 1;     
+int commentBlockNum = 0; 
+%}
+
+%s CODE
+%x COMMENT_BLOCK
+%x COMMENT_LINE
+
+%%
+
+"//"                      BEGIN(COMMENT_LINE);
+
+input                     printf("%d_tINPUT\n", lineNum);
+output                    printf("%d_tOUTPUT\n", lineNum);
+evaluate                  printf("%d_tEVALUATE\n", lineNum);
+node                      printf("%d_tNODE\n", lineNum);
+
+true                      printf("%d_tTRUE\n", lineNum);
+false                     printf("%d_tFALSE\n", lineNum);
+and                       printf("%d_tAND\n", lineNum);
+or                        printf("%d_tOR\n", lineNum);
+xor                       printf("%d_tXOR\n", lineNum);
+not                       printf("%d_tNOT\n", lineNum);
+
+,                       printf("%d_tCOMMA\n", lineNum);
+=                       printf("%d_tASSIGN\n", lineNum);
+"("                       printf("%d_tLPR\n", lineNum);
+")"                       printf("%d_tRPR\n", lineNum);
+
+
+
+
+<COMMENT_BLOCK>\n             lineNum++; 
+<COMMENT_LINE>.
+<COMMENT_LINE>\n {
+    lineNum++;
+    BEGIN(CODE);
+}
+\n                      lineNum++;
+
+<COMMENT_BLOCK>"/*"             commentBlockNum++;     
+"/*" {
+    BEGIN(COMMENT_BLOCK);
+    commentBlockNum++;
+}
+
+<COMMENT_BLOCK>"*/" {
+    commentBlockNum--;
+    if (commentBlockNum == 0) BEGIN(CODE);
+} 
+"*/"                      printf("%d_tILLEGAL_CHARACTER_(%s)\n", lineNum, yytext);
+
+<COMMENT_BLOCK>.
+
+[ \t]+ 
+[a-zA-Z][a-zA-Z0-9_]*     printf("%d_tIDENTIFIER_(%s)\n", lineNum, yytext);
+[^a-zA-Z0-9_ \n\t]        printf("%d_tILLEGAL_CHARACTER_(%s)\n", lineNum, yytext);
+
+
+%%
+main(){
+    yylex();
+}
