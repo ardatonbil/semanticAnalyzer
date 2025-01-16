@@ -1,0 +1,90 @@
+%{
+#ifdef YYDEBUG
+  yydebug = 1;
+#endif
+#include <stdio.h>
+void yyerror (const char *msg) /* Called by yyparse on error */ {return; }
+%}
+%token tINPUT tOUTPUT tNODE tIDENTIFIER tEVALUATE tOR tAND tXOR tNOT tASSIGNMENT tCOMMA tLPR tRPR tTRUE tFALSE
+%left tOR, tXOR
+%left tAND
+%precedence tNOT
+%start program
+%%
+program : lcd
+;
+
+lcd : 
+    | declarations circuitDesign evaluations
+;
+
+
+declarations : declaration 
+             | declaration declarations
+;
+
+declaration : input 
+            | output 
+            | node
+;
+
+input : tINPUT identifierList
+;
+
+output : tOUTPUT identifierList
+;
+
+node : tNODE identifierList
+;
+
+identifierList : tIDENTIFIER 
+               | tIDENTIFIER tCOMMA identifierList
+;
+
+
+circuitDesign : assignment 
+              | assignment circuitDesign
+;
+
+assignment : tIDENTIFIER tASSIGNMENT expression
+;
+
+expression : tNOT expression 
+           | tIDENTIFIER 
+	   | tLPR expression tRPR
+           | expression tAND expression 
+           | expression tOR expression
+           | expression tXOR expression 
+           | tTRUE 
+           | tFALSE
+;
+
+evaluations : evaluation 
+            | evaluation evaluations
+;
+
+
+evaluation : tEVALUATE tIDENTIFIER tLPR evaluationAssignmentList tRPR
+;
+
+EvaluationAssignmentList : evaluationAssignment 
+                         | evaluationAssignment tCOMMA evaluationAssignmentList
+;
+
+evaluationAssignment : tIDENTIFIER tASSIGNMENT tTRUE 
+                     | tIDENTIFIER tASSIGNMENT tFALSE
+;
+
+%%
+int main () 
+{
+    if (yyparse())
+    {
+    printf("ERROR\n");
+    return 1;
+    } 
+    else 
+    {
+    return 0;
+    }
+}
