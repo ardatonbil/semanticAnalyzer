@@ -1,0 +1,16 @@
+// Initializing the inputs
+
+input CS305, is, awesome
+
+output I, love, programming, languages
+
+// Designing the circuit
+
+I = (CS305 and is) xor awesome
+love = ((awesome or is) not awesome) and (CS305 xor is)
+programming = (CS305 xor awesome) or (CS305 and awesome)
+languages = (CS305 and is) or (awesome and programming)
+
+// Evaluating the circuit
+
+evauluate X(CS305 = true, is = false, awesome = true)
