@@ -1,0 +1,8 @@
+/* Chain of NOT operators */
+
+input X
+output Y
+
+Y = not not not not X
+
+evaluate test(X = true)

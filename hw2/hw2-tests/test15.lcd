@@ -1,0 +1,15 @@
+/* Undefined * symbol */
+
+input X, Y
+
+node A
+
+output Z**
+
+
+
+Z = X and Y 
+
+
+
+evaluate cir1(X = true, Y = true)

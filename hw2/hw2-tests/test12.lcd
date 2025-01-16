@@ -1,0 +1,8 @@
+/* Double operators */
+
+input X
+output Y
+
+Y = X and and Y
+
+evaluate test(X = true)

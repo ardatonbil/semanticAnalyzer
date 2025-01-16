@@ -1,0 +1,9 @@
+input A
+output B
+
+node C = 1
+
+C = A xor true
+B = A and C
+
+evaluate X(A = false)

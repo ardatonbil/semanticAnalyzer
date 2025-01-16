@@ -1,0 +1,8 @@
+/* Invalid declaration order */
+
+input X
+Y = X and Z
+output Y
+node Z
+
+evaluate test(X = true)

@@ -1,0 +1,8 @@
+/* Missing operands */
+
+input X
+output Y
+
+Y = X or
+
+evaluate test(X = true)

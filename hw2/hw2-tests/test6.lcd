@@ -1,0 +1,8 @@
+/* Missing identifier in evaluation block */
+
+input X
+output Y
+
+Y = X
+
+evaluate (X = true)

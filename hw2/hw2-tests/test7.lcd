@@ -1,0 +1,8 @@
+/* Multiple binary operators without parantheses */
+
+input A, B, C, D
+output X
+
+X = A and B or C xor D and A or B
+
+evaluate test(A = true, B = false, C = true, D = false)

@@ -1,0 +1,8 @@
+/* Missing operator between expressions */
+
+input A, B
+output X
+
+X = A B
+
+evaluate test(A = true, B = false)

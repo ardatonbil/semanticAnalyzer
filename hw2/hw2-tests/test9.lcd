@@ -1,0 +1,8 @@
+/* Missing parantheses */
+
+input X
+output Y
+
+Y = (X and Y
+
+evaluate test(X = true)
